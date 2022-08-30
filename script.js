@@ -4,24 +4,24 @@ function game() {
     let playerScore = 0;
     let computerScore = 0;
 
-    for (let i = 0; i < 5; i++) {
+    while ((playerScore || computerScore) < 5) {
 
         let playerSelection = getPlayerChoice();
         let computerSelection = getComputerChoice(rps);
 
         switch (playRound(playerSelection, computerSelection)) {
-            case 1:
+            case 'win':
                 console.log('You win this round!');
                 playerScore ++;
                 break;
-            case 0:
+            case 'tie':
                 console.log('This round was a tie.');
                 break;
-            case -1:
+            case 'loss':
                 console.log('You lose this round!');
                 computerScore ++;
                 break;
-            case 2:
+            case 'badInput':
                 console.log('Try entering that again.')
                 i --;
                 break;
@@ -37,20 +37,20 @@ function playRound(playerSelection, getComputerChoice) {
         (playerSelection === 'paper' && getComputerChoice === 'rock') ||
         (playerSelection === 'scissors' && getComputerChoice === 'paper')
     )
-        return 1;
+        return 'win';
 
     else if (
         (playerSelection === 'rock' && getComputerChoice === 'paper') ||
         (playerSelection === 'paper' && getComputerChoice === 'scissors') ||
         (playerSelection === 'scissors' && getComputerChoice === 'rock')
     )
-        return -1;
+        return 'loss';
 
     else if (playerSelection === getComputerChoice)
-        return 0;
+        return 'tie';
 
     else
-        return 2;
+        return 'badInput';
     }
 
 function getComputerChoice(rps) {
