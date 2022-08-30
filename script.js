@@ -22,8 +22,7 @@ function game() {
                 computerScore ++;
                 break;
             case 'badInput':
-                console.log('Try entering that again.')
-                i --;
+                console.log('Try entering that again.');
                 break;
         }
         console.log(playerScore, computerScore)
