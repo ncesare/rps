@@ -1,0 +1,16 @@
+.container {
+    background-color: rgb(230, 230, 230);
+    display: flex;
+    padding: 20px;
+    width: 80%;
+    margin: 200px auto;
+    justify-content: center;
+}
+
+.button {
+    display: flex;
+    background-color: aliceblue;
+    margin: 10px;
+    padding: 20px;
+    justify-content: center;
+}

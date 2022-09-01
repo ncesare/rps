@@ -64,4 +64,4 @@ function getWinner(playerScore, computerScore) {
     return (playerScore > computerScore) ? 'You win the game!' : 'You lose the game :(';
 }
 
-game();
+// game();
