@@ -10,6 +10,12 @@ scissors.addEventListener('click', () => game('scissors'));
 let playerScore = 0;
 let computerScore = 0;
 
+const scoreCard = document.querySelector('.scoreCard');
+const playerScoreDisplay = document.querySelector('#playerScore');
+const computerScoreDisplay = document.querySelector('#computerScore');
+
+playerScoreDisplay.textContent = playerScore;
+computerScoreDisplay.textContent = computerScore;
 
 function game(playerSelection) {
     const rps = ["rock", "paper", "scissors"];
@@ -34,9 +40,14 @@ function game(playerSelection) {
                 console.log('Try entering that again.');
                 break;
         }
-        console.log(playerScore, computerScore)
+        console.log(playerScore, computerScore);
+        playerScoreDisplay.textContent = playerScore;
+        computerScoreDisplay.textContent = computerScore;
     } else {
         console.log(getWinner(playerScore, computerScore));
+        let finalScore = document.createElement('p');
+        finalScore.textContent = getWinner(playerScore, computerScore);
+        scoreCard.append(finalScore);
     }
 }
 
