@@ -1,12 +1,21 @@
-function game() {
+const rock = document.querySelector('#rock')
+const paper = document.querySelector('#paper')
+const scissors = document.querySelector('#scissors')
+
+rock.addEventListener('click', () => game('rock'))
+paper.addEventListener('click', () => game('paper'));
+scissors.addEventListener('click', () => game('scissors'));
+
+
+let playerScore = 0;
+let computerScore = 0;
+
+
+function game(playerSelection) {
     const rps = ["rock", "paper", "scissors"];
 
-    let playerScore = 0;
-    let computerScore = 0;
+    if ((playerScore || computerScore) < 5) {        
 
-    while ((playerScore || computerScore) < 5) {
-
-        let playerSelection = getPlayerChoice();
         let computerSelection = getComputerChoice(rps);
 
         switch (playRound(playerSelection, computerSelection)) {
@@ -26,8 +35,9 @@ function game() {
                 break;
         }
         console.log(playerScore, computerScore)
+    } else {
+        console.log(getWinner(playerScore, computerScore));
     }
-    console.log(getWinner(playerScore, computerScore));
 }
 
 function playRound(playerSelection, getComputerChoice) {
@@ -56,9 +66,9 @@ function getComputerChoice(rps) {
     return rps[Math.floor(Math.random() * 3)];
 }
 
-function getPlayerChoice() {
+/* function getPlayerChoice() {
     return prompt('Rock, paper, or scissors?', '').toLowerCase()
-}
+} */
 
 function getWinner(playerScore, computerScore) {
     return (playerScore > computerScore) ? 'You win the game!' : 'You lose the game :(';
