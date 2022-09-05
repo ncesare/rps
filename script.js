@@ -1,14 +1,17 @@
-const rock = document.querySelector('#rock')
-const paper = document.querySelector('#paper')
-const scissors = document.querySelector('#scissors')
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
+const resetButton = document.querySelector('#reset');
 
-rock.addEventListener('click', () => game('rock'))
+rock.addEventListener('click', () => game('rock'));
 paper.addEventListener('click', () => game('paper'));
 scissors.addEventListener('click', () => game('scissors'));
+resetButton.addEventListener('click', () => reset());
 
 
 let playerScore = 0;
 let computerScore = 0;
+let gameOver = false;
 
 const scoreCard = document.querySelector('.scoreCard');
 const playerScoreDisplay = document.querySelector('#playerScore');
@@ -20,7 +23,7 @@ computerScoreDisplay.textContent = computerScore;
 function game(playerSelection) {
     const rps = ["rock", "paper", "scissors"];
 
-    if ((playerScore || computerScore) < 5) {        
+    if ((playerScore < 5) && (computerScore < 5)) {        
 
         let computerSelection = getComputerChoice(rps);
 
@@ -43,12 +46,28 @@ function game(playerSelection) {
         console.log(playerScore, computerScore);
         playerScoreDisplay.textContent = playerScore;
         computerScoreDisplay.textContent = computerScore;
-    } else {
-        console.log(getWinner(playerScore, computerScore));
-        let finalScore = document.createElement('p');
-        finalScore.textContent = getWinner(playerScore, computerScore);
-        scoreCard.append(finalScore);
+
+        if ((playerScore === 5) || (computerScore === 5)) {
+            console.log(getWinner(playerScore, computerScore));
+            const finalScore = document.createElement('p');
+            finalScore.setAttribute('id','finalScore')
+            finalScore.textContent = getWinner(playerScore, computerScore);
+            scoreCard.append(finalScore);
+            gameOver = true;
+        }
+    } 
+}
+
+function reset() {
+    if (gameOver === true) {
+        scoreCard.removeChild(finalScore);
+        gameOver = false;
     }
+    playerScore = 0;
+    computerScore = 0;
+    console.log(playerScore, computerScore);
+    playerScoreDisplay.textContent = playerScore;
+    computerScoreDisplay.textContent = computerScore;
 }
 
 function playRound(playerSelection, getComputerChoice) {
@@ -77,12 +96,10 @@ function getComputerChoice(rps) {
     return rps[Math.floor(Math.random() * 3)];
 }
 
-/* function getPlayerChoice() {
-    return prompt('Rock, paper, or scissors?', '').toLowerCase()
-} */
+
 
 function getWinner(playerScore, computerScore) {
-    return (playerScore > computerScore) ? 'You win the game!' : 'You lose the game :(';
+    if (gameOver === false) {
+        return (playerScore > computerScore) ? 'You win the game!' : 'You lose the game :(';
+    }
 }
-
-// game();
