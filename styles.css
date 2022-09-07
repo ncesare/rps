@@ -26,3 +26,9 @@ button {
     padding-top: 4px;
     margin-left: 10%;
 }
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}

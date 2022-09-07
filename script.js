@@ -8,7 +8,6 @@ paper.addEventListener('click', () => game('paper'));
 scissors.addEventListener('click', () => game('scissors'));
 resetButton.addEventListener('click', () => reset());
 
-
 let playerScore = 0;
 let computerScore = 0;
 let gameOver = false;
@@ -82,8 +81,6 @@ function playRound(playerSelection, getComputerChoice) {
 function getComputerChoice(rps) {
     return rps[Math.floor(Math.random() * 3)];
 }
-
-
 
 function getWinner(playerScore, computerScore) {
     if (gameOver === false) {
