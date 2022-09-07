@@ -16,6 +16,7 @@ let gameOver = false;
 const scoreCard = document.querySelector('.scoreCard');
 const playerScoreDisplay = document.querySelector('#playerScore');
 const computerScoreDisplay = document.querySelector('#computerScore');
+const previousRound = document.querySelector('#previousRound');
 
 playerScoreDisplay.textContent = playerScore;
 computerScoreDisplay.textContent = computerScore;
@@ -27,22 +28,8 @@ function game(playerSelection) {
 
         let computerSelection = getComputerChoice(rps);
 
-        switch (playRound(playerSelection, computerSelection)) {
-            case 'win':
-                console.log('You win this round!');
-                playerScore ++;
-                break;
-            case 'tie':
-                console.log('This round was a tie.');
-                break;
-            case 'loss':
-                console.log('You lose this round!');
-                computerScore ++;
-                break;
-            case 'badInput':
-                console.log('Try entering that again.');
-                break;
-        }
+        playRound(playerSelection, computerSelection)
+
         console.log(playerScore, computerScore);
         playerScoreDisplay.textContent = playerScore;
         computerScoreDisplay.textContent = computerScore;
@@ -68,6 +55,7 @@ function reset() {
     console.log(playerScore, computerScore);
     playerScoreDisplay.textContent = playerScore;
     computerScoreDisplay.textContent = computerScore;
+    previousRound.textContent = '';
 }
 
 function playRound(playerSelection, getComputerChoice) {
@@ -75,22 +63,21 @@ function playRound(playerSelection, getComputerChoice) {
         (playerSelection === 'rock' && getComputerChoice === 'scissors') ||
         (playerSelection === 'paper' && getComputerChoice === 'rock') ||
         (playerSelection === 'scissors' && getComputerChoice === 'paper')
-    )
-        return 'win';
-
+    ) {
+        playerScore++;
+        previousRound.textContent = `You win this round because ${playerSelection} beats ${getComputerChoice}!`;
+    }
     else if (
         (playerSelection === 'rock' && getComputerChoice === 'paper') ||
         (playerSelection === 'paper' && getComputerChoice === 'scissors') ||
         (playerSelection === 'scissors' && getComputerChoice === 'rock')
-    )
-        return 'loss';
-
-    else if (playerSelection === getComputerChoice)
-        return 'tie';
-
-    else
-        return 'badInput';
+    ) {
+        computerScore++;
+        previousRound.textContent = `You lose this round because ${getComputerChoice} beats ${playerSelection}.`;
+    } else {
+        previousRound.textContent = `That was a tie. You both picked ${playerSelection}.`;
     }
+}
 
 function getComputerChoice(rps) {
     return rps[Math.floor(Math.random() * 3)];
