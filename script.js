@@ -1,89 +1,80 @@
-const rock = document.querySelector('#rock');
-const paper = document.querySelector('#paper');
-const scissors = document.querySelector('#scissors');
+// Let player choose 'Best of x' with a slider
+
+const matchLength = document.querySelector('#best-of-slider');
+
+let winningScore = Number(matchLength.value);
+
+matchLength.addEventListener('input', () => {
+    if (user.score === 0 && computer.score === 0) winningScore = Number(matchLength.value);
+    else matchLength.value = winningScore;
+});
+
+// Assigning variables to misc on-page elements
+
 const resetButton = document.querySelector('#reset');
+resetButton.addEventListener('click', () => {
+    user.score = computer.score = playerScore.textContent = computerScore.textContent = 0; 
+})
 
-rock.addEventListener('click', () => game('rock'));
-paper.addEventListener('click', () => game('paper'));
-scissors.addEventListener('click', () => game('scissors'));
-resetButton.addEventListener('click', () => reset());
+const roundOutcome = document.querySelector('#previous-round');
 
-let playerScore = 0;
-let computerScore = 0;
-let gameOver = false;
+const playerScore = document.querySelector('#player-score');
+const computerScore = document.querySelector('#computer-score');
 
-const scoreCard = document.querySelector('.scoreCard');
-const playerScoreDisplay = document.querySelector('#playerScore');
-const computerScoreDisplay = document.querySelector('#computerScore');
-const previousRound = document.querySelector('#previousRound');
+const rpsButtons = document.querySelectorAll('.container>button');
 
-playerScoreDisplay.textContent = playerScore;
-computerScoreDisplay.textContent = computerScore;
+rpsButtons.forEach(element => {
+    element.value = element.id;
+    element.addEventListener('click', () => {
+            if (user.score === winningScore || computer.score === winningScore) return;
+            else playRound(element.value);
+        });
+    });
 
-function game(playerSelection) {
-    const rps = ["rock", "paper", "scissors"];
+// Create player object that stores choice and score
 
-    if ((playerScore < 5) && (computerScore < 5)) {        
-
-        let computerSelection = getComputerChoice(rps);
-
-        playRound(playerSelection, computerSelection)
-
-        console.log(playerScore, computerScore);
-        playerScoreDisplay.textContent = playerScore;
-        computerScoreDisplay.textContent = computerScore;
-
-        if ((playerScore === 5) || (computerScore === 5)) {
-            console.log(getWinner(playerScore, computerScore));
-            const finalScore = document.createElement('p');
-            finalScore.setAttribute('id','finalScore')
-            finalScore.textContent = getWinner(playerScore, computerScore);
-            scoreCard.append(finalScore);
-            gameOver = true;
-        }
-    } 
+function Player(type) {
+    let score = 0;
+    let choice;
+    return {type, score, choice};
 }
 
-function reset() {
-    if (gameOver === true) {
-        scoreCard.removeChild(finalScore);
-        gameOver = false;
+let user = Player('human');
+let computer = Player('computer');
+
+// Each time the user players a round, evluate their choice vs computer choice
+// Change scores accordingly
+// Check to see if the game if over
+
+function playRound(buttonValue) {
+    user.choice = buttonValue;
+    computer.choice = randomRPS();
+    roundOutcome.textContent = evalRound();
+    playerScore.textContent = user.score;
+    computerScore.textContent = computer.score;
+    checkGameOver();
+
+    function randomRPS() {
+        const rps = ['rock', 'paper', 'scissors'];
+        const randInt = Math.floor(Math.random() * 3);
+        return rps[randInt];
     }
-    playerScore = 0;
-    computerScore = 0;
-    console.log(playerScore, computerScore);
-    playerScoreDisplay.textContent = playerScore;
-    computerScoreDisplay.textContent = computerScore;
-    previousRound.textContent = '';
-}
 
-function playRound(playerSelection, getComputerChoice) {
-    if (
-        (playerSelection === 'rock' && getComputerChoice === 'scissors') ||
-        (playerSelection === 'paper' && getComputerChoice === 'rock') ||
-        (playerSelection === 'scissors' && getComputerChoice === 'paper')
-    ) {
-        playerScore++;
-        previousRound.textContent = `You win this round because ${playerSelection} beats ${getComputerChoice}!`;
+    function evalRound() {
+        if (user.choice === computer.choice) return `Tie! You both chose ${user.choice}.`;
+        else if (user.choice === 'rock' && computer.choice === 'scissors' ||
+                user.choice === 'paper' && computer.choice === 'rock' ||
+                user.choice === 'sissors' && computer.choice === 'paper') {
+                    user.score++;
+                    return `You win! ${user.choice} beats ${computer.choice}.`;
+                } else {
+                    computer.score++;
+                    return `You lose. ${computer.choice} beats ${user.choice}.`;
+                } 
     }
-    else if (
-        (playerSelection === 'rock' && getComputerChoice === 'paper') ||
-        (playerSelection === 'paper' && getComputerChoice === 'scissors') ||
-        (playerSelection === 'scissors' && getComputerChoice === 'rock')
-    ) {
-        computerScore++;
-        previousRound.textContent = `You lose this round because ${getComputerChoice} beats ${playerSelection}.`;
-    } else {
-        previousRound.textContent = `That was a tie. You both picked ${playerSelection}.`;
-    }
-}
 
-function getComputerChoice(rps) {
-    return rps[Math.floor(Math.random() * 3)];
-}
-
-function getWinner(playerScore, computerScore) {
-    if (gameOver === false) {
-        return (playerScore > computerScore) ? 'You win the game!' : 'You lose the game :(';
+    function checkGameOver() {
+        if (user.score === winningScore) console.log('user wins');
+        else if (computer.score === winningScore) console.log('computer wins');
     }
 }

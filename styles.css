@@ -21,6 +21,10 @@ button {
     margin: 0 auto;
 }
 
+#best-of-slider {
+    width: 250px;
+}
+
 .scoreCard {
     height: max-content;
     padding-top: 4px;

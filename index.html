@@ -10,21 +10,16 @@
 </head>
 <body>
     <div class="container">
-        <div class="button">
-            <button type="button" id="rock">Rock</button>
-        </div>
-        <div class="button">
-            <button type="button" id="paper">Paper</button>
-        </div>
-        <div class="button">
-            <button type="button" id="scissors">Scissors</button>
-        </div>
+        <button type="button" id="rock"><img src="icons/rock_icon.svg" alt="Rock"></button>
+        <button type="button" id="paper"><img src="icons/paper_icon.svg" alt="Paper"></button>
+        <button type="button" id="scissors"><img src="icons/scissors_icon.svg" alt="Scissors"></button>
     </div>
     <button type="button" id="reset">Reset</button>
+    <input type="range" min="1" max="5" value="3" id="best-of-slider">
     <div class="scoreCard">
-        <p>Your Score: <span id="playerScore"></span></p>
-        <p>Computer Score: <span id="computerScore"></span></p>
-        <p><span id="previousRound"></span></p>
+        <p>Your Score: <span id="player-score">0</span></p>
+        <p>Computer Score: <span id="computer-score">0</span></p>
+        <p><span id="previous-round"></span></p>
     </div>
 </body>
 </html>
