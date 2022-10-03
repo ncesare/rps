@@ -70,16 +70,12 @@ function playRound(buttonValue) {
     }
 
     function evalRound() {
-        if (user.choice === computer.choice) return `${appendIcons(user.choice)} <img src="icons/swords_icon.svg" alt="versus"> ${appendIcons(user.choice)}`;
+        if (user.choice === computer.choice) return `${appendIcons(user.choice)} <img src="icons/swords_icon.svg" alt="versus"> ${appendIcons(computer.choice)}`;
         else if (user.choice === 'rock' && computer.choice === 'scissors' ||
-                user.choice === 'paper' && computer.choice === 'rock' ||
-                user.choice === 'scissors' && computer.choice === 'paper') {
-                    user.score++;
-                    return `${appendIcons(user.choice)} <img src="icons/swords_icon.svg" alt="versus"> ${appendIcons(computer.choice)}`;
-                } else {
-                    computer.score++;
-                    return `${appendIcons(computer.choice)} <img src="icons/swords_icon.svg" alt="versus"> ${appendIcons(user.choice)}`;
-                } 
+            user.choice === 'paper' && computer.choice === 'rock' ||
+            user.choice === 'scissors' && computer.choice === 'paper') user.score++;
+        else computer.score++;
+        return `${appendIcons(user.choice)} <img src="icons/swords_icon.svg" alt="versus"> ${appendIcons(computer.choice)}`;
     }
 
     function checkGameOver() {
