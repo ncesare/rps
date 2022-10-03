@@ -73,7 +73,7 @@ function playRound(buttonValue) {
         if (user.choice === computer.choice) return `${appendIcons(user.choice)} <img src="icons/swords_icon.svg" alt="versus"> ${appendIcons(user.choice)}`;
         else if (user.choice === 'rock' && computer.choice === 'scissors' ||
                 user.choice === 'paper' && computer.choice === 'rock' ||
-                user.choice === 'sissors' && computer.choice === 'paper') {
+                user.choice === 'scissors' && computer.choice === 'paper') {
                     user.score++;
                     return `${appendIcons(user.choice)} <img src="icons/swords_icon.svg" alt="versus"> ${appendIcons(computer.choice)}`;
                 } else {
