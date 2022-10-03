@@ -1,19 +1,25 @@
 // Let player choose 'Best of x' with a slider
 
 const matchLength = document.querySelector('#best-of-slider');
+const bestOfDisplay = document.querySelector('#best-of-display');
 
 let winningScore = Number(matchLength.value);
 
 matchLength.addEventListener('input', () => {
-    if (user.score === 0 && computer.score === 0) winningScore = Number(matchLength.value);
+    if (user.score === 0 && computer.score === 0) {
+        winningScore = Number(matchLength.value);
+        bestOfDisplay.textContent = `Best of ${winningScore * 2 - 1}`
+    }
     else matchLength.value = winningScore;
 });
+
 
 // Assigning variables to misc on-page elements
 
 const resetButton = document.querySelector('#reset');
 resetButton.addEventListener('click', () => {
     user.score = computer.score = playerScore.textContent = computerScore.textContent = 0; 
+    roundOutcome.innerHTML = '';
 })
 
 const roundOutcome = document.querySelector('#previous-round');
@@ -49,7 +55,7 @@ let computer = Player('computer');
 function playRound(buttonValue) {
     user.choice = buttonValue;
     computer.choice = randomRPS();
-    roundOutcome.textContent = evalRound();
+    roundOutcome.innerHTML = evalRound();
     playerScore.textContent = user.score;
     computerScore.textContent = computer.score;
     checkGameOver();
@@ -61,20 +67,31 @@ function playRound(buttonValue) {
     }
 
     function evalRound() {
-        if (user.choice === computer.choice) return `Tie! You both chose ${user.choice}.`;
+        if (user.choice === computer.choice) return `${appendIcons(user.choice)} <img src="icons/swords_icon.svg" alt="versus"> ${appendIcons(user.choice)}`;
         else if (user.choice === 'rock' && computer.choice === 'scissors' ||
                 user.choice === 'paper' && computer.choice === 'rock' ||
                 user.choice === 'sissors' && computer.choice === 'paper') {
                     user.score++;
-                    return `You win! ${user.choice} beats ${computer.choice}.`;
+                    return `${appendIcons(user.choice)} <img src="icons/swords_icon.svg" alt="versus"> ${appendIcons(computer.choice)}`;
                 } else {
                     computer.score++;
-                    return `You lose. ${computer.choice} beats ${user.choice}.`;
+                    return `${appendIcons(computer.choice)} <img src="icons/swords_icon.svg" alt="versus"> ${appendIcons(user.choice)}`;
                 } 
     }
 
     function checkGameOver() {
         if (user.score === winningScore) console.log('user wins');
         else if (computer.score === winningScore) console.log('computer wins');
+    }
+
+    function appendIcons(choice) {
+        switch (choice) {
+            case 'rock':
+                return '<img src="icons/rock_icon.svg" alt="Rock">'
+            case 'paper':
+                return '<img src="icons/paper_icon.svg" alt="Paper">'
+            case 'scissors':
+                return '<img src="icons/scissors_icon.svg" alt="Scissors">'
+        }
     }
 }

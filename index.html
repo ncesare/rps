@@ -9,17 +9,22 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <button type="button" id="rock"><img src="icons/rock_icon.svg" alt="Rock"></button>
-        <button type="button" id="paper"><img src="icons/paper_icon.svg" alt="Paper"></button>
-        <button type="button" id="scissors"><img src="icons/scissors_icon.svg" alt="Scissors"></button>
-    </div>
-    <button type="button" id="reset">Reset</button>
-    <input type="range" min="1" max="5" value="3" id="best-of-slider">
-    <div class="scoreCard">
-        <p>Your Score: <span id="player-score">0</span></p>
-        <p>Computer Score: <span id="computer-score">0</span></p>
-        <p><span id="previous-round"></span></p>
+    <div class="main">
+        <div class="container">
+            <button type="button" id="rock"><img src="icons/rock_icon.svg" alt="Rock"></button>
+            <button type="button" id="paper"><img src="icons/paper_icon.svg" alt="Paper"></button>
+            <button type="button" id="scissors"><img src="icons/scissors_icon.svg" alt="Scissors"></button>
+        </div>
+        <div class="control-panel">
+            <input type="range" min="1" max="5" value="3" id="best-of-slider">
+            <label for="best-of-slider" id="best-of-display">Best of 5</label>
+            <button type="button" id="reset">Reset</button>
+        </div>
+        <div class="score-card">
+            <p>Player: <span id="player-score">0</span></p>
+            <p>Computer: <span id="computer-score">0</span></p>
+            <div id="previous-round"></div>
+        </div>
     </div>
 </body>
 </html>
