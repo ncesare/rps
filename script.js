@@ -20,6 +20,7 @@ const resetButton = document.querySelector('#reset');
 resetButton.addEventListener('click', () => {
     user.score = computer.score = playerScore.textContent = computerScore.textContent = 0; 
     roundOutcome.innerHTML = '';
+    displayWinner.textContent = '';
 })
 
 const roundOutcome = document.querySelector('#previous-round');
@@ -36,6 +37,8 @@ rpsButtons.forEach(element => {
             else playRound(element.value);
         });
     });
+
+const displayWinner = document.querySelector('#winner');
 
 // Create player object that stores choice and score
 
@@ -80,8 +83,8 @@ function playRound(buttonValue) {
     }
 
     function checkGameOver() {
-        if (user.score === winningScore) console.log('user wins');
-        else if (computer.score === winningScore) console.log('computer wins');
+        if (user.score === winningScore) return displayWinner.textContent = 'You win!';
+        else if (computer.score === winningScore) return displayWinner.textContent = 'You lose :(';
     }
 
     function appendIcons(choice) {
